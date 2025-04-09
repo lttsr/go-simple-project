@@ -1,0 +1,20 @@
+{
+    "name": "Go-Dev",
+    "dockerComposeFile": "docker-compose.yml", 
+    "service": "go-dev", 
+    "workspaceFolder": "/home/vscode/project/",
+    "extensions": [
+      "golang.go",
+      "ms-vscode-remote.remote-containers", 
+       "EditorConfig.EditorConfig",
+       "ckolkman.vscode-postgres"
+    ],
+    "settings": {
+      "go.gopath": "/go", 
+      "go.goroot": "/usr/local/go", 
+      "go.useLanguageServer": true 
+    },
+    "postCreateCommand": "go mod init beego-app && go mod tidy",
+    "remoteUser": "root"
+}
+  

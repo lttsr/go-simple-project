@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  go-dev:
+    image: golang:1.24
+    container_name: beego-app
+    extra_hosts:
+    - 'host.docker.internal:host-gateway'
+    volumes:
+      - ../:/home/vscode/project/:cached
+      - ~/.ssh:/home/vscode/.ssh
+    working_dir: /home/vscode/project/
+    ports:
+      - "8080:8080"
+    command: tail -f /dev/null
+  backend-db:
+      image: postgres:16
+      restart: unless-stopped
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        TZ: Asia/Tokyo
