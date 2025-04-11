@@ -2,7 +2,7 @@ package injector
 
 import (
 	"beego-app/conf"
-	appOrm "beego-app/conf/orm"
+	"beego-app/conf/datasource"
 	"beego-app/controller"
 	"beego-app/usecase"
 
@@ -12,8 +12,8 @@ import (
 
 func InitializedAppProperties() *conf.AppProperties {
 	wire.Build(
-		appOrm.NewDataSourceProperties,
-		appOrm.NewDbProps,
+		datasource.NewDataSourceProperties,
+		datasource.NewDbProps,
 		conf.NewAppProperties,
 	)
 	return nil

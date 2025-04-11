@@ -2,12 +2,10 @@ package controller
 
 import (
 	"beego-app/usecase"
-
-	beego "github.com/beego/beego/v2/server/web"
 )
 
 type UserController struct {
-	beego.Controller
+	DefaultController
 	UserService *usecase.UserService
 }
 
@@ -19,6 +17,11 @@ func NewUserController(userService *usecase.UserService) *UserController {
 
 func (u *UserController) FindUser() {
 }
+
+type UserFindRequest struct {
+	UserID int `json:"user_id" validate:"required"` // Required UserID
+}
+
 func (u *UserController) RegisterUser() {
 	u.UserService.RegisterUser()
 }

@@ -8,7 +8,7 @@ import (
 )
 
 type User struct {
-	ID            int                 `orm:"auto"`
+	Userid        int                 `orm:"auto"`
 	Name          string              `orm:"size(30)"`
 	NameKana      string              `orm:"size(30)"`
 	Profile       string              `orm:"size(250)"`
@@ -33,8 +33,8 @@ func FindUser(id int, orm orm.Ormer) (*User, error) {
 /** Register User*/
 func RegisterUser(rep orm.Ormer) (*User, error) {
 	user := &User{
-		Name:          "testuser",
-		Email:         "txuser@gmail.com",
+		Name:          "taro_tanaka",
+		Email:         "txuser@docomo.co.jp",
 		AuthorityType: types.User,
 	}
 	rep.Insert(user)

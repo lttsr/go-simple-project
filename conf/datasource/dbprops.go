@@ -1,4 +1,4 @@
-package orm
+package datasource
 
 type DbProps struct {
 	Datasource DataSourceProperties

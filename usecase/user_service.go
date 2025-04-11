@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"beego-app/conf/orm/txtemplate"
+	txt "beego-app/context/orm"
 	"beego-app/model"
 
 	"github.com/beego/beego/v2/client/orm"
@@ -20,7 +20,7 @@ func (u *UserService) FindUserByID(id int) {
 
 /** Register User*/
 func (u *UserService) RegisterUser() (*model.User, error) {
-	result, err := txtemplate.NewTxTemplate().Tx(func(rep orm.Ormer) (any, error) {
+	result, err := txt.NewTxTemplate().Tx(func(rep orm.Ormer) (any, error) {
 		return model.RegisterUser(rep)
 	})
 	if err != nil {

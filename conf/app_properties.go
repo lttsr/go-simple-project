@@ -1,15 +1,15 @@
 package conf
 
 import (
-	"beego-app/conf/orm"
+	"beego-app/conf/datasource"
 )
 
 type AppProperties struct {
-	Db orm.DbProps
+	Db datasource.DbProps
 	/* todo Mail MailProps */
 }
 
-func NewAppProperties(props *orm.DbProps) *AppProperties {
+func NewAppProperties(props *datasource.DbProps) *AppProperties {
 	return &AppProperties{
 		Db: *props,
 	}
