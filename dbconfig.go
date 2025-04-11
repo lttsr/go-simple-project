@@ -22,7 +22,6 @@ func init() {
 		AppProperties.Db.Datasource.SSLMode)
 	// Register the PostgreSQL driver
 	orm.RegisterDriver("postgres", orm.DRPostgres)
-
 	// Register the database with the ORM
 	err := orm.RegisterDataBase("default", AppProperties.Db.Datasource.DriverName, connStr)
 	if err != nil {
@@ -30,9 +29,8 @@ func init() {
 		audit.Log.Error("Register DB", err.Error())
 	}
 	audit.Log.Info("DB init")
-
+	orm.Debug = true
 	orm.RegisterModel(new(model.User))
-
 	if err := orm.RunSyncdb("default", false, true); err != nil {
 		audit.Log.Error("Sync DB Resource", err.Error())
 	}

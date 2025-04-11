@@ -8,6 +8,19 @@ const (
 	Guest
 )
 
-func (a AuthorityType) String() string {
-	return [...]string{"Admin", "User", "Guest"}[a]
+func (t AuthorityType) IsAdmin() bool {
+	switch t {
+	case Admin:
+		return true
+	default:
+		return false
+	}
+}
+func (t AuthorityType) IsGuestGuest() bool {
+	switch t {
+	case Guest:
+		return true
+	default:
+		return false
+	}
 }

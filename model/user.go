@@ -2,16 +2,23 @@ package model
 
 import (
 	"beego-app/model/types"
-	"fmt"
+	"time"
 
 	"github.com/beego/beego/v2/client/orm"
 )
 
 type User struct {
 	ID            int                 `orm:"auto"`
-	Name          string              `orm:"size(100)"`
+	Name          string              `orm:"size(30)"`
+	NameKana      string              `orm:"size(30)"`
+	Profile       string              `orm:"size(250)"`
 	Email         string              `orm:"size(100)"`
 	AuthorityType types.AuthorityType `orm:"default(0)"`
+	StatusType    types.StatusType    `orm:"default(0)"`
+	RegisterId    string              `orm:"auto_now_add"`
+	RegisterDate  time.Time           `orm:"auto_now_add"`
+	UpdateId      string              `orm:"auto_now_add"`
+	UpdateDate    time.Time           `orm:"auto_now_add"`
 }
 
 func FindUser(id int, orm orm.Ormer) (*User, error) {
@@ -22,14 +29,15 @@ func FindUser(id int, orm orm.Ormer) (*User, error) {
 	// }
 	return user, nil
 }
-func RegisterUser(orm orm.Ormer) (*User, error) {
-	fmt.Println("accessedModel:register")
+
+/** Register User*/
+func RegisterUser(rep orm.Ormer) (*User, error) {
 	user := &User{
-		Name:          "test",
-		Email:         "example.com",
+		Name:          "testuser",
+		Email:         "txuser@gmail.com",
 		AuthorityType: types.User,
 	}
-	orm.Insert(user)
+	rep.Insert(user)
 
 	return user, nil
 }

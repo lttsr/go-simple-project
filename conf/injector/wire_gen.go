@@ -11,7 +11,6 @@ import (
 	"beego-app/conf/orm"
 	"beego-app/controller"
 	"beego-app/usecase"
-	orm2 "github.com/beego/beego/v2/client/orm"
 )
 
 // Injectors from wire.go:
@@ -23,8 +22,8 @@ func InitializeAppProperties() *conf.AppProperties {
 	return appProperties
 }
 
-func InitializeUserHandler(db orm2.Ormer) *controller.UserController {
-	userService := usecase.NewUserService(db)
+func InitializeUserHandler() *controller.UserController {
+	userService := usecase.NewUserService()
 	userController := controller.NewUserController(userService)
 	return userController
 }

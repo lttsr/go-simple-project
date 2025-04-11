@@ -12,7 +12,6 @@ func Init() {
 	Log.SetOutput(os.Stdout)
 	Log.SetLevel(logrus.DebugLevel)
 	Log.SetFormatter(&logrus.TextFormatter{
-		// FullTimestamp: true,
 		ForceColors: true,
 	})
 }

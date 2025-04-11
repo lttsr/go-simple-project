@@ -1,44 +1,30 @@
 package usecase
 
 import (
+	"beego-app/conf/orm/txtemplate"
 	"beego-app/model"
 
 	"github.com/beego/beego/v2/client/orm"
 )
 
 type UserService struct {
-	Orm orm.Ormer
 }
 
-func NewUserService(db orm.Ormer) *UserService {
-	return &UserService{
-		Orm: db,
-	}
+func NewUserService() *UserService {
+	return &UserService{}
 }
 
 func (u *UserService) FindUserByID(id int) {
 
 }
+
+/** Register User*/
 func (u *UserService) RegisterUser() (*model.User, error) {
-	// todo authorization
-	// todo transaction
-	user, err := model.RegisterUser(u.Orm)
+	result, err := txtemplate.NewTxTemplate().Tx(func(rep orm.Ormer) (any, error) {
+		return model.RegisterUser(rep)
+	})
 	if err != nil {
 		return nil, err
 	}
-	return user, nil
-}
-
-func (u *UserService) ChangeUser(id int, newName string) (*model.User, error) {
-	user, err := model.FindUser(id, u.Orm)
-	if err != nil {
-		return nil, err
-	}
-
-	err = user.ChangeUser(newName, u.Orm)
-	if err != nil {
-		return nil, err
-	}
-
-	return user, nil
+	return result.(*model.User), nil
 }
