@@ -12,7 +12,7 @@ import (
 func main() {
 	//Userコントローラ構造体を初期化
 	var handler = injector.InitializeUserHandler()
-	audit.Log.Info("Service init:", handler.UserService)
+	audit.LoggerEvent.Info("Service init:", handler.UserService)
 	routers.InitUserRoutes(handler)
 	web.Run()
 }

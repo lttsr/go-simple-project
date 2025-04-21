@@ -26,7 +26,7 @@ func FindUserById(id int, rep orm.Ormer) (*User, error) {
 	user := &User{Userid: id}
 	err := rep.Read(user)
 	if err != nil {
-		audit.Log.Warn("Failed to findUser", err)
+		audit.LoggerActor.Warn("Failed to findUser", err)
 		return nil, err
 	}
 	return user, nil
@@ -35,8 +35,8 @@ func FindUserById(id int, rep orm.Ormer) (*User, error) {
 /** Register User*/
 func RegisterUser(rep orm.Ormer) (*User, error) {
 	user := &User{
-		Name:          "taro_tanaka",
-		Email:         "txuser@docomo.co.jp",
+		Name:          "jun_rien",
+		Email:         "txuser@jjis.zh",
 		AuthorityType: types.User,
 	}
 	rep.Insert(user)

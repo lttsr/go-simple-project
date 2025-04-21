@@ -22,15 +22,27 @@ func (u *UserService) FindUserById(id int) (*model.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	audit.Log.Info(result.(*model.User).Name)
+	audit.LoggerActor.Info(result.(*model.User).Name)
 	return result.(*model.User), nil
 
 }
 
 /** Register User*/
+// func (u *UserService) RegisterUser() (*model.User, error) {
+// 	result, err := txt.NewTxTemplate().Tx(func(rep orm.Ormer) (any, error) {
+// 		return model.RegisterUser(rep)
+// 	})
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return result.(*model.User), nil
+// }
+
 func (u *UserService) RegisterUser() (*model.User, error) {
-	result, err := txt.NewTxTemplate().Tx(func(rep orm.Ormer) (any, error) {
-		return model.RegisterUser(rep)
+	result, err := audit.Audit("register", "user", func() (any, error) {
+		return txt.NewTxTemplate().Tx(func(rep orm.Ormer) (any, error) {
+			return model.RegisterUser(rep)
+		})
 	})
 	if err != nil {
 		return nil, err

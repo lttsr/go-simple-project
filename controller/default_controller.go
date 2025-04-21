@@ -15,7 +15,7 @@ type DefaultController struct {
 func (b *DefaultController) BindRequest(req interface{}) error {
 	body := b.Ctx.Input.RequestBody
 	if err := json.Unmarshal(body, req); err != nil {
-		audit.Log.Error("Failed to bind request:", err)
+		audit.LoggerEvent.Error("Failed to bind request:", err)
 	}
 	return nil
 }
