@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"beego-app/audit"
 	txt "beego-app/context/orm"
 	"beego-app/model"
 
@@ -14,7 +15,15 @@ func NewUserService() *UserService {
 	return &UserService{}
 }
 
-func (u *UserService) FindUserByID(id int) {
+func (u *UserService) FindUserById(id int) (*model.User, error) {
+	result, err := txt.NewTxTemplate().Tx(func(rep orm.Ormer) (any, error) {
+		return model.FindUserById(id, rep)
+	})
+	if err != nil {
+		return nil, err
+	}
+	audit.Log.Info(result.(*model.User).Name)
+	return result.(*model.User), nil
 
 }
 

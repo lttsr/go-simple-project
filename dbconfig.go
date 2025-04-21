@@ -32,6 +32,7 @@ func init() {
 	orm.Debug = true
 	orm.ResetModelCache()
 	orm.RegisterModel(new(model.User))
+	orm.RegisterModel(new(audit.AuditActor))
 	if err := orm.RunSyncdb("default", false, true); err != nil {
 		audit.Log.Error("Sync DB Resource", err.Error())
 	}

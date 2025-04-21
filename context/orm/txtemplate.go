@@ -14,6 +14,7 @@ func NewTxTemplate() *TxTemplate {
 	}
 }
 
+/** Transaction Processing */
 func (t *TxTemplate) Tx(fn func(o orm.Ormer) (interface{}, error)) (interface{}, error) {
 	tx, err := t.ormer.Begin()
 	if err != nil {
@@ -28,7 +29,7 @@ func (t *TxTemplate) Tx(fn func(o orm.Ormer) (interface{}, error)) (interface{},
 	return result, nil
 }
 
-func (t *TxTemplate) TxTxReadOnly(fn func(o orm.Ormer) (interface{}, error)) (interface{}, error) {
+func (t *TxTemplate) TxReadOnly(fn func(o orm.Ormer) (interface{}, error)) (interface{}, error) {
 	tx, err := t.ormer.Begin()
 	if err != nil {
 		return nil, err

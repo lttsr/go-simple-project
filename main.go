@@ -14,6 +14,5 @@ func main() {
 	var handler = injector.InitializeUserHandler()
 	audit.Log.Info("Service init:", handler.UserService)
 	routers.InitUserRoutes(handler)
-	//routers.InitBookRoutes()
 	web.Run()
 }

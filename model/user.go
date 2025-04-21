@@ -1,6 +1,7 @@
 package model
 
 import (
+	"beego-app/audit"
 	"beego-app/model/types"
 	"time"
 
@@ -21,12 +22,13 @@ type User struct {
 	UpdateDate    time.Time           `orm:"auto_now_add"`
 }
 
-func FindUser(id int, orm orm.Ormer) (*User, error) {
-	user := &User{}
-	// err := orm.QueryTable("user").Filter("id", id).One(user)
-	// if err != nil {
-	// 	return nil, err
-	// }
+func FindUserById(id int, rep orm.Ormer) (*User, error) {
+	user := &User{Userid: id}
+	err := rep.Read(user)
+	if err != nil {
+		audit.Log.Warn("Failed to findUser", err)
+		return nil, err
+	}
 	return user, nil
 }
 
